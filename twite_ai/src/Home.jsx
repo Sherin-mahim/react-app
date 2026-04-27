@@ -310,6 +310,7 @@ function Home() {
     const [isInteracting, setIsInteracting] = useState(false);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState(null);
+    const [isSuburban, setIsSuburban] = useState(true);
 
     const handleDragEnd = (event, info) => {
         const swipeThreshold = 50;
@@ -476,14 +477,17 @@ function Home() {
                             <p>Break free from manual paperwork. Build a smarter, faster, and more connected educational experience today.</p>
                         </div>
                     </div>
-                    
+
                     {/* Right Column: Highlight Block */}
                     <div className="simplifies-column highlight-column">
                         <h3>Why Choose Twite?</h3>
                         <ul className="simplifies-list">
-                            <li><span className="check">✓</span> [Point 1 goes here]</li>
-                            <li><span className="check">✓</span> [Point 2 goes here]</li>
-                            <li><span className="check">✓</span> [Point 3 goes here]</li>
+                            <li><span className="check">✓</span> Board support (State/CBSE/ICSE/IGCSE)</li>
+                            <li><span className="check">✓</span>AI - Driven </li>
+                            <li><span className="check">✓</span>Ease of Use</li>
+                            <li><span className="check">✓</span> Cost Efficient</li>
+                            <li><span className="check">✓</span> Data backup & security</li>
+
                         </ul>
                     </div>
                 </div>
@@ -544,7 +548,7 @@ function Home() {
                                         {card.title === 'Gold' && '🥇 '}
                                         {card.title}
                                     </h3>
-                                    <h1>{card.price}<span>/Student/Month</span></h1>
+                                    <h1>{isSuburban ? card.price : card.title === 'Bronze' ? '₹40' : card.title === 'Silver' ? '₹65' : '₹80'}<span>/Student/Month</span></h1>
                                     <p className="pricing-card-goal" style={{
                                         fontSize: '0.85rem',
                                         color: '#0066cc',
@@ -597,6 +601,25 @@ function Home() {
                     <p>See exactly what you get — no surprises.</p>
                 </div>
 
+                <div className="location-toggle-container">
+                    <span className={`toggle-label ${isSuburban ? 'active' : ''}`}>Suburban</span>
+                    <div 
+                        className={`framer-toggle ${isSuburban ? 'left' : 'right'}`} 
+                        onClick={() => setIsSuburban(!isSuburban)}
+                    >
+                        <motion.div 
+                            className="toggle-handle"
+                            layout
+                            initial={false}
+                            animate={{
+                                x: isSuburban ? 0 : 32
+                            }}
+                            transition={{ type: "spring", stiffness: 700, damping: 30 }}
+                        />
+                    </div>
+                    <span className={`toggle-label ${!isSuburban ? 'active' : ''}`}>Urban</span>
+                </div>
+
                 <div className="comparison-wrapper">
                     {/* Sticky column headers */}
                     <div className="comparison-table">
@@ -611,18 +634,18 @@ function Home() {
                             <div className="comp-tier comp-bronze">
                                 <span className="comp-tier-icon">🥉</span>
                                 <span className="comp-tier-name">Bronze</span>
-                                <span className="comp-tier-price">₹20<small>/Stu/Mo</small></span>
+                                <span className="comp-tier-price">{isSuburban ? '₹20' : '₹40'}<small>/Stu/Mo</small></span>
                             </div>
                             <div className="comp-tier comp-silver popular-tier">
                                 <div className="comp-popular-badge">Most Popular</div>
                                 <span className="comp-tier-icon">🥈</span>
                                 <span className="comp-tier-name">Silver</span>
-                                <span className="comp-tier-price">₹35<small>/Stu/Mo</small></span>
+                                <span className="comp-tier-price">{isSuburban ? '₹35' : '₹65'}<small>/Stu/Mo</small></span>
                             </div>
                             <div className="comp-tier comp-gold">
                                 <span className="comp-tier-icon">🥇</span>
                                 <span className="comp-tier-name">Gold</span>
-                                <span className="comp-tier-price">₹50<small>/Stu/Mo</small></span>
+                                <span className="comp-tier-price">{isSuburban ? '₹50' : '₹80'}<small>/Stu/Mo</small></span>
                             </div>
                         </div>
 
