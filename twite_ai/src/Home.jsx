@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { hover, animate } from 'motion';
 import './App.css';
@@ -311,6 +311,15 @@ function Home() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedPlan, setSelectedPlan] = useState(null);
     const [isSuburban, setIsSuburban] = useState(true);
+    const videoRef = useRef(null);
+
+    useEffect(() => {
+        if (videoRef.current) {
+            videoRef.current.play().catch(error => {
+                console.log("Autoplay was prevented:", error);
+            });
+        }
+    }, []);
 
     const handleDragEnd = (event, info) => {
         const swipeThreshold = 50;
@@ -395,103 +404,107 @@ function Home() {
                     <a href="#contact">FAQ</a>
                 </div>
                 <div className="nav-right">
-                    <a href="#contact" className="book-demo-btn">Book a demo</a>
+                    <a href="#contact" className="book-demo-btn">Book a Demo</a>
                 </div>
             </nav>
 
-            {/* HERO SECTION */}
-            <section className="hero-section scholarly-hero">
-                <div className="trust-badge">
-                    <span className="sparkle">✨</span> Trusted by 1,200+ schools across India
-                </div>
-                <h1>Run Your Entire School on <br />One Simple <span className="gradient-text">Platform</span></h1>
-                <p className="hero-description">
-                    Manage attendance, fees, academics, and communication — all in one place.
-                </p>
-                <div className="price-info">
-                    Starts at just ₹20 per Student/Month
-                </div>
-                <div className="hero-btns">
-                    <a href="#contact" className="btn-primary">Start free trial →</a>
-                    <a href="#contact" className="btn-secondary-white">Talk to sales</a>
-                </div>
-            </section>
+            {/* HERO SECTION (REMOVED) */}
+            {false && (
+                <section className="hero-section scholarly-hero">
+                    <div className="trust-badge">
+                        <span className="sparkle">✨</span> Trusted by 1,200+ schools across India
+                    </div>
+                    <h1>Run Your Entire School on <br />One Simple <span className="gradient-text">Platform</span></h1>
+                    <p className="hero-description">
+                        Manage attendance, fees, academics, and communication — all in one place.
+                    </p>
+                    <div className="price-info">
+                        Starts at just ₹20 <strong>per Student/Month</strong>
+                    </div>
+                    <div className="hero-btns">
+                        <a href="#contact" className="btn-primary">Talk to sales</a>
+                    </div>
+                </section>
+            )}
 
             {/* STILL MANAGING MANUALLY SECTION */}
             <section className="manual-headaches-section">
                 <div className="section-header">
-                    <h2>Still Managing Your School Manually?</h2>
-                    <p>These everyday headaches slow your team down — and they all have one fix.</p>
+                    <h2>See Twite ERP in Action</h2>
+                    <p>Discover how one powerful platform simplifies school management from admissions to analytics.</p>
                 </div>
 
-                <div className="vertical-slider-container">
-                    <div className="vertical-slider-track">
-                        {/* Slide 1 */}
-                        <div className="headache-card">
-                            <img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&fit=crop&q=80&w=600" alt="Paperwork" />
-                            <div className="headache-content">
-                                <h3>Manual attendance & paperwork</h3>
-                                <p>Stacks of registers, lost slips, hours of data entry every day.</p>
-                            </div>
-                        </div>
-                        {/* Slide 2 */}
-                        <div className="headache-card">
-                            <img src="https://images.unsplash.com/photo-1554224155-1696413565d3?auto=format&fit=crop&q=80&w=600" alt="Fees" />
-                            <div className="headache-content">
-                                <h3>Fee tracking confusion</h3>
-                                <p>Spreadsheets out of sync, dues missed, reconciliations a nightmare.</p>
-                            </div>
-                        </div>
+                <div className="manual-video-wrap">
+                    <video
+                        ref={videoRef}
+                        className="manual-video"
+                        autoPlay
+                        muted
+                        loop
+                        playsInline
+                        controls
+                        preload="metadata"
+                    >
+                        <source src="/Twite%20schola%203.mp4" type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
 
+                <div className="hero-btns" style={{ display: "flex", justifyContent: "center", marginTop: "40px" }}>
+                    <a href="#contact" className="btn-primary" style={{ textDecoration: "none" }}>Talk To Sales</a>
+                </div>
+            </section>
 
-                        {/* Slide 4 */}
-                        <div className="headache-card">
-                            <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?auto=format&fit=crop&q=80&w=600" alt="Admin" />
-                            <div className="headache-content">
-                                <h3>Time-consuming admin work</h3>
-                                <p>Repetitive tasks eat up your team's most productive hours.</p>
-                            </div>
-                        </div>
-                        {/* Duplicate for seamless loop */}
-                        <div className="headache-card">
-                            <img src="https://images.unsplash.com/photo-1555949963-aa79dcee981c?auto=format&fit=crop&q=80&w=600" alt="Data errors" />
-                            <div className="headache-content">
-                                <h3>Frequent data errors</h3>
-                                <p>Manual entry mistakes lead to confusion and rework.</p>
-                            </div>
-                        </div>
+            <section className="simplifies-section" id="why-choose">
+                <div className="simplifies-container">
+                    <motion.div
+                        className="simplifies-header"
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        transition={{ duration: 0.6 }}
+                    >
+                        <h2>Why Choose Twite Schola?</h2>
+                        <p><h3>The ultimate digital ecosystem for smarter, faster school/college management.</h3></p>
+                    </motion.div>
+
+                    <div className="simplifies-features-grid">
+                        {[
+                            { title: "Cost Advantage", desc: "Transparent pricing — no hidden charges / add-ons. Lower Total Cost of Ownership (TCO) compared to competitors.", icon: "💰" },
+                            { title: "Zero Complexity Approach", desc: "No feature overload — only what schools actually use. Reduces training time & confusion.", icon: "🎯" },
+                            { title: "AI-Driven & Automation First", desc: "AI attendance, smart insights, predictive alerts. Saves admin time by 30–50%.", icon: "🤖" },
+                            { title: "White-Labeled Platform", desc: "School’s own branding (App, Portal, Reports) across all plans. Builds institutional credibility.", icon: "🏷️" },
+                            { title: "Strong Parent Engagement", desc: "Real-time updates (attendance, fees, communication). Improves parent satisfaction & retention.", icon: "👨‍👩‍👧" },
+                            { title: "Data Security & Reliability", desc: "Secure cloud architecture. Automated backups + recovery.", icon: "🔐" },
+                            { title: "Easy Migration Support", desc: "Free / assisted data migration from existing systems. Zero data loss transition.", icon: "🔄" },
+                            { title: "Dedicated Support Team", desc: "WhatsApp / Call support. Fast issue resolution (no long ticket delays).", icon: "🧑‍🏫" },
+                            { title: "Scalable for Growth", desc: "Start small → upgrade anytime. Supports institutions from single schools to multi-campus chains.", icon: "📈" },
+                            { title: "Fast Implementation", desc: "Once Developed, Go-live in 3–7 days. Minimal setup, quick onboarding.", icon: "⚡" },
+                            { title: "Universal Compatibility", desc: "Supports all boards + schools & colleges. One ERP for entire institution ecosystem.", icon: "🎓" },
+                            { title: "Client Retention Advantage", desc: "10% loyalty discount from 2nd year. Long-term cost savings.", icon: "🎁" }
+                        ].map((item, i) => (
+                            <motion.div
+                                key={i}
+                                className="simplifies-feature-item"
+                                initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60, scale: 0.9 }}
+                                whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                                viewport={{ once: true }}
+                                transition={{ duration: 0.5, delay: i * 0.1 }}
+                                whileHover={{ scale: 1.03 }}
+                            >
+                                <div className="feature-icon-circle">
+                                    {item.icon}
+                                </div>
+                                <div className="feature-info">
+                                    <h3 className="feature-title">{item.title}</h3>
+                                    <p className="feature-desc">{item.desc}</p>
+                                </div>
+                            </motion.div>
+                        ))}
                     </div>
                 </div>
             </section>
-            <section className="simplifies-section">
-                <div className="section-header">
-                    <h2>Twite ERP Simplifies Everything</h2>
-                    <p>Everything you need to run your school efficiently — all in one place.</p>
-                </div>
 
-                <div className="simplifies-grid">
-                    {/* Left Column: Background Image + Overlay Text */}
-                    <div className="simplifies-column image-column">
-                        <div className="image-overlay">
-                            <h2>Empower Your School's Future</h2>
-                            <p>Break free from manual paperwork. Build a smarter, faster, and more connected educational experience today.</p>
-                        </div>
-                    </div>
-
-                    {/* Right Column: Highlight Block */}
-                    <div className="simplifies-column highlight-column">
-                        <h3>Why Choose Twite?</h3>
-                        <ul className="simplifies-list">
-                            <li><span className="check">✓</span> Board support (State/CBSE/ICSE/IGCSE)</li>
-                            <li><span className="check">✓</span>AI - Driven </li>
-                            <li><span className="check">✓</span>Ease of Use</li>
-                            <li><span className="check">✓</span> Cost Efficient</li>
-                            <li><span className="check">✓</span> Data backup & security</li>
-
-                        </ul>
-                    </div>
-                </div>
-            </section>
             <section className="pricing-section" id="pricing">
                 <h2>Simple, Transparent Pricing</h2>
                 <p>Choose a plan that fits your school size</p>
@@ -543,24 +556,32 @@ function Home() {
                                 >
                                     {card.isPopular && <div className="tag">Most Popular</div>}
                                     <h3>
-                                        {card.title === 'Bronze' && '🥉 '}
-                                        {card.title === 'Silver' && '🥈 '}
-                                        {card.title === 'Gold' && '🥇 '}
-                                        {card.title}
+                                        {card.title === 'Bronze' && '\uD83E\uDD49 '}
+                                        {card.title === 'Silver' && '\uD83E\uDD48 '}
+                                        {card.title === 'Gold' && '\uD83E\uDD47 '}
+                                        {false && (
+                                            <>
+                                                {card.title === 'Bronze' && '🥉 '}
+                                                {card.title === 'Silver' && '🥈 '}
+                                                {card.title === 'Gold' && '🥇 '}
+                                            </>
+                                        )}
+                                        {card.title} Plan
                                     </h3>
-                                    <h1>{isSuburban ? card.price : card.title === 'Bronze' ? '₹40' : card.title === 'Silver' ? '₹65' : '₹80'}<span>/Student/Month</span></h1>
-                                    <p className="pricing-card-goal" style={{
+                                    <h1>{isSuburban ? card.price : card.title === 'Bronze' ? '₹40' : card.title === 'Silver' ? '₹65' : '₹80'}<span style={{ fontWeight: '900' }}><strong><b>/User/Month</b></strong></span></h1>
+                                    <b><p className="pricing-card-goal" style={{
                                         fontSize: '0.85rem',
-                                        color: '#0066cc',
+                                        color: card.title === 'Bronze' ? '#9c4221' : card.title === 'Silver' ? '#475569' : '#b45309',
                                         marginBottom: '15px',
-                                        backgroundColor: 'rgba(0, 102, 204, 0.1)',
+                                        backgroundColor: card.title === 'Bronze' ? '#fffcf0' : card.title === 'Silver' ? '#f8fafc' : '#fffdf2',
                                         padding: '5px 12px',
                                         borderRadius: '20px',
                                         display: 'inline-block',
-                                        marginTop: '5px'
+                                        marginTop: '5px',
+                                        border: `1px solid ${card.title === 'Bronze' ? '#fbd38d' : card.title === 'Silver' ? '#cbd5e1' : '#fef3c7'}`
                                     }}>
                                         👉 <strong style={{ fontWeight: '800' }}>Goal:</strong> <span style={{ fontWeight: '500' }}>{card.goal}</span>
-                                    </p>
+                                    </p></b>
                                     <ul style={{ listStyle: 'none', padding: 0 }}>
                                         {card.features.map((f, i) => (
                                             <motion.li
@@ -585,7 +606,7 @@ function Home() {
                                             setIsModalOpen(true);
                                         }}
                                     >
-                                        View
+                                        View More
                                     </button>
                                 </motion.div>
                             );
@@ -597,17 +618,22 @@ function Home() {
             {/* FEATURE COMPARISON TABLE */}
             <section className="comparison-section" id="features">
                 <div className="comparison-header">
-                    <h2>What's included in <span>each plan</span></h2>
+                    <h2>What's Included in <span>Each Plan</span></h2>
                     <p>See exactly what you get — no surprises.</p>
                 </div>
 
                 <div className="location-toggle-container">
                     <span className={`toggle-label ${isSuburban ? 'active' : ''}`}>Suburban</span>
-                    <div 
-                        className={`framer-toggle ${isSuburban ? 'left' : 'right'}`} 
+                    <div
+                        className={`framer-toggle ${isSuburban ? 'left' : 'right'}`}
                         onClick={() => setIsSuburban(!isSuburban)}
+                        style={{
+                            background: isSuburban
+                                ? "linear-gradient(135deg, #1e40af, #3b82f6)"   // Left = Dark Blue
+                                : "linear-gradient(135deg, #f8fafc, #cbd5e1)"   // Right = White Chromatic
+                        }}
                     >
-                        <motion.div 
+                        <motion.div
                             className="toggle-handle"
                             layout
                             initial={false}
@@ -634,18 +660,18 @@ function Home() {
                             <div className="comp-tier comp-bronze">
                                 <span className="comp-tier-icon">🥉</span>
                                 <span className="comp-tier-name">Bronze</span>
-                                <span className="comp-tier-price">{isSuburban ? '₹20' : '₹40'}<small>/Stu/Mo</small></span>
+                                <span className="comp-tier-price">{isSuburban ? '₹20' : '₹40'}<small>/User/Month</small></span>
                             </div>
                             <div className="comp-tier comp-silver popular-tier">
                                 <div className="comp-popular-badge">Most Popular</div>
                                 <span className="comp-tier-icon">🥈</span>
                                 <span className="comp-tier-name">Silver</span>
-                                <span className="comp-tier-price">{isSuburban ? '₹35' : '₹65'}<small>/Stu/Mo</small></span>
+                                <span className="comp-tier-price">{isSuburban ? '₹35' : '₹65'}<small>/User/Month</small></span>
                             </div>
                             <div className="comp-tier comp-gold">
                                 <span className="comp-tier-icon">🥇</span>
                                 <span className="comp-tier-name">Gold</span>
-                                <span className="comp-tier-price">{isSuburban ? '₹50' : '₹80'}<small>/Stu/Mo</small></span>
+                                <span className="comp-tier-price">{isSuburban ? '₹50' : '₹80'}<small>User/Month</small></span>
                             </div>
                         </div>
 
@@ -682,7 +708,22 @@ function Home() {
                         ))}
 
                         {/* Category: Communication & Analytics */}
-                        <div className="comp-category-row"><span>Communication & Analytics</span></div>
+                        <div className="comp-category-row">
+                            <span style={{ flexWrap: 'wrap', gap: '8px', height: 'auto', padding: '12px 24px' }}>
+                                Communication & Analytics
+                                <small style={{
+                                    fontSize: '11px',
+                                    textTransform: 'none',
+                                    fontWeight: '700',
+                                    color: '#ef4444',
+                                    letterSpacing: '0',
+                                    display: 'inline-block',
+                                    lineHeight: '1.2'
+                                }}>
+                                    *Note: Extra charges applicable for third-party apps
+                                </small>
+                            </span>
+                        </div>
                         {[
                             ["Communication", "SMS (Manual)", "Bulk SMS/Email", "WhatsApp"],
                             ["Reports & Dashboard", "Basic", "Detailed", "AI Insights"],
@@ -721,7 +762,7 @@ function Home() {
 
             <section className="cta-section">
                 <div className="cta-overlay">
-                    <h2>Ready to Digitize Your School?</h2>
+                    <h2>Ready to Digitize Your School/College?</h2>
                     <p>Join hundreds of schools simplifying their operations with Twite ERP.</p>
 
                     <a href="#contact" className="cta-btn">Book a Demo</a>
@@ -806,7 +847,7 @@ function Home() {
                         onClick={() => setIsModalOpen(false)}
                     >
                         <motion.div
-                            className="modal-content"
+                            className={`modal-content ${selectedPlan?.title?.toLowerCase()}-modal`}
                             initial={{ opacity: 0, scale: 0.95, y: 20 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
                             exit={{ opacity: 0, scale: 0.95, y: 20 }}
@@ -824,7 +865,12 @@ function Home() {
                                 >
                                     ✕
                                 </button>
-                                <h2>{selectedPlan?.title} Plan</h2>
+                                <h2>
+                                    {selectedPlan?.title === "Bronze" && "🥉 "}
+                                    {selectedPlan?.title === "Silver" && "🥈 "}
+                                    {selectedPlan?.title === "Gold" && "🥇 "}
+                                    {selectedPlan?.title} Plan
+                                </h2>
 
                                 <span>
                                     {selectedPlan?.title === "Bronze" && "(Basic – Starter for All Schools)"}
@@ -856,7 +902,7 @@ function Home() {
                     </motion.div>
                 )}
             </AnimatePresence>
-        </div>
+        </div >
     );
 }
 
