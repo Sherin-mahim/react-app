@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { hover, animate } from 'motion';
 import './App.css';
-import twiteLogo from './assets/logo.png';
+const twiteLogo = "/schola.png";
 
 const pricingCardsData = [
     {
@@ -313,13 +313,13 @@ function Home() {
     const [isSuburban, setIsSuburban] = useState(true);
     const videoRef = useRef(null);
 
-    useEffect(() => {
+    const toggleVideo = (e) => {
+        if (e) e.preventDefault();
         if (videoRef.current) {
-            videoRef.current.play().catch(error => {
-                console.log("Autoplay was prevented:", error);
-            });
+            videoRef.current.play();
+            document.getElementById('video')?.scrollIntoView({ behavior: 'smooth' });
         }
-    }, []);
+    };
 
     const handleDragEnd = (event, info) => {
         const swipeThreshold = 50;
@@ -396,15 +396,14 @@ function Home() {
             {/* NAVIGATIONBAR */}
             <nav className="navbar">
                 <div className="logo">
-                    <img src={twiteLogo} alt="Twite Logo" style={{ height: '40px' }} />
+                    <img src={twiteLogo} alt="Twite Logo" style={{ height: '180px' }} />
                 </div>
+
                 <div className="nav-links">
                     <a href="#features">Features</a>
                     <a href="#pricing">Pricing</a>
-                    <a href="#contact">FAQ</a>
-                </div>
-                <div className="nav-right">
-                    <a href="#contact" className="book-demo-btn">Book a Demo</a>
+                    <a href="#comparison">Comparison</a>
+                    <a href="#contact">Contact Us</a>
                 </div>
             </nav>
 
@@ -427,8 +426,126 @@ function Home() {
                 </section>
             )}
 
+            {/* EXACT IMAGE RECREATION HERO */}
+            <section className="recreated-hero">
+                <div className="hero-container">
+                    <div className="hero-flex">
+                        <div className="hero-content">
+                            <div className="hero-badge">ALL-IN-ONE EDUCATION ERP</div>
+                            <h1 className="hero-main-title">
+                                Empowering <span className="highlight-blue">Institutions.</span><br />
+                                Enriching <span className="highlight-blue">Education.</span>
+                            </h1>
+
+                            <p className="hero-description">
+                                TwiteSchola is a smarter way to manage your institution. Simplify operations, engage stakeholders, and drive better outcomes.
+                            </p>
+
+                            <div className="hero-feature-grid" id="features">
+                                {[
+                                    { title: "Cost Advantage", desc: "Transparent pricing — no hidden charges / add-ons. Lower Total Cost of Ownership (TCO) compared to competitors.", icon: "💰" },
+                                    { title: "Zero Complexity Approach", desc: "No feature overload — only what schools actually use. Reduces training time & confusion.", icon: "🎯" },
+                                    { title: "AI-Driven & Automation First", desc: "AI attendance, smart insights, predictive alerts. Saves admin time by 30–50%.", icon: "🤖" },
+                                    { title: "White-Labeled Platform (All Plans)", desc: "School’s own branding (App, Portal, Reports). Builds institutional credibility.", icon: "🏷️" },
+                                    { title: "Strong Parent Engagement", desc: "Real-time updates (attendance, fees, communication). Improves parent satisfaction & retention.", icon: "👨‍👩‍👧" },
+                                    { title: "Data Security & Reliability", desc: "Secure cloud architecture. Automated backups + recovery.", icon: "🔐" },
+                                    { title: "Easy Migration Support", desc: "Free / assisted data migration from existing systems. Zero data loss transition.", icon: "🔄" },
+                                    { title: "Dedicated Support Team", desc: "WhatsApp / Call support. Fast issue resolution (no long ticket delays).", icon: "🧑‍🏫" },
+                                    { title: "Scalable for Growth", desc: "Start small → upgrade anytime. Supports single school/Colleges to multi-campus chains.", icon: "📈" },
+                                    { title: "Fast Implementation", desc: "Once Developed, Go-live in 3–7 days. Minimal setup, quick onboarding.", icon: "⚡" },
+                                    { title: "Universal Compatibility", desc: "Supports all boards + schools & colleges. One ERP for entire institution ecosystem.", icon: "🎓" },
+                                    { title: "Client Retention Advantage", desc: "10% loyalty discount from 2nd year. Long-term cost savings.", icon: "🎁" }
+                                ].map((feat, index) => (
+                                    <motion.div
+                                        key={index}
+                                        className="grid-feat-card"
+                                        initial={{ opacity: 0, y: 30 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
+                                        style={{ animationDelay: `${index * 0.2}s` }}
+                                    >
+                                        <div className="feat-card-header">
+                                            <div className="feat-card-icon-circle">{feat.icon}</div>
+                                            <h4>{feat.title}</h4>
+                                        </div>
+                                        <p>{feat.desc}</p>
+                                    </motion.div>
+                                ))}
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                    <div className="hero-stats-capsule">
+                        <div className="stats-left-text">
+                            <h3>A Perfect Fit for Every Institution</h3>
+                            <p>From small schools to the largest organizations.</p>
+                        </div>
+
+                        <div className="stats-grid">
+                            <div className="stat-card">
+                                <div className="stat-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" /><circle cx="8.5" cy="7" r="4" /><path d="M18 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6ZM23 21v-2a4 4 0 0 0-3-3.87" /></svg>
+                                </div>
+                                <div className="stat-card-text">
+                                    <span className="stat-num">500+</span>
+                                    <span className="stat-label">Institutions <br />Trust Us</span>
+                                </div>
+                            </div>
+                            <div className="stat-divider"></div>
+                            <div className="stat-card">
+                                <div className="stat-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z" /><path d="M6 12v5c3 3 9 3 12 0v-5" /></svg>
+                                </div>
+                                <div className="stat-card-text">
+                                    <span className="stat-num">100K+</span>
+                                    <span className="stat-label">Students <br />Managed</span>
+                                </div>
+                            </div>
+                            <div className="stat-divider"></div>
+                            <div className="stat-card">
+                                <div className="stat-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="7" r="4" /><path d="M5.5 21v-2a6.5 6.5 0 0 1 13 0v2" /></svg>
+                                </div>
+                                <div className="stat-card-text">
+                                    <span className="stat-num">10K+</span>
+                                    <span className="stat-label">Teachers <br />Empowered</span>
+                                </div>
+                            </div>
+                            <div className="stat-divider"></div>
+                            <div className="stat-card">
+                                <div className="stat-card-icon">
+                                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#2563eb" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="20" x2="18" y2="10" /><line x1="12" y1="20" x2="12" y2="4" /><line x1="6" y1="20" x2="6" y2="14" /></svg>
+                                </div>
+                                <div className="stat-card-text">
+                                    <span className="stat-num">99.9%</span>
+                                    <span className="stat-label">System <br />Uptime</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className="stats-right-action">
+                            <a href="#video-section" className="stats-demo-btn">
+                                <div className="btn-icon">
+                                    <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polygon points="5 3 19 12 5 21 5 3"></polygon></svg>
+                                </div>
+                                <div className="btn-content">
+                                    <strong>Click for a Video</strong>
+                                    <span>Watch how TwiteSchola works</span>
+                                </div>
+                                <div className="btn-arrow">
+                                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* STILL MANAGING MANUALLY SECTION */}
-            <section className="manual-headaches-section">
+            <section className="manual-headaches-section" id="video">
                 <div className="section-header">
                     <h2>See Twite ERP in Action</h2>
                     <p>Discover how one powerful platform simplifies school management from admissions to analytics.</p>
@@ -438,9 +555,6 @@ function Home() {
                     <video
                         ref={videoRef}
                         className="manual-video"
-                        autoPlay
-                        muted
-                        loop
                         playsInline
                         controls
                         preload="metadata"
@@ -455,59 +569,10 @@ function Home() {
                 </div>
             </section>
 
-            <section className="simplifies-section" id="why-choose">
-                <div className="simplifies-container">
-                    <motion.div
-                        className="simplifies-header"
-                        initial={{ opacity: 0, y: 20 }}
-                        whileInView={{ opacity: 1, y: 0 }}
-                        viewport={{ once: true }}
-                        transition={{ duration: 0.6 }}
-                    >
-                        <h2>Why Choose Twite Schola?</h2>
-                        <p><h3>The ultimate digital ecosystem for smarter, faster school/college management.</h3></p>
-                    </motion.div>
-
-                    <div className="simplifies-features-grid">
-                        {[
-                            { title: "Cost Advantage", desc: "Transparent pricing — no hidden charges / add-ons. Lower Total Cost of Ownership (TCO) compared to competitors.", icon: "💰" },
-                            { title: "Zero Complexity Approach", desc: "No feature overload — only what schools actually use. Reduces training time & confusion.", icon: "🎯" },
-                            { title: "AI-Driven & Automation First", desc: "AI attendance, smart insights, predictive alerts. Saves admin time by 30–50%.", icon: "🤖" },
-                            { title: "White-Labeled Platform", desc: "School’s own branding (App, Portal, Reports) across all plans. Builds institutional credibility.", icon: "🏷️" },
-                            { title: "Strong Parent Engagement", desc: "Real-time updates (attendance, fees, communication). Improves parent satisfaction & retention.", icon: "👨‍👩‍👧" },
-                            { title: "Data Security & Reliability", desc: "Secure cloud architecture. Automated backups + recovery.", icon: "🔐" },
-                            { title: "Easy Migration Support", desc: "Free / assisted data migration from existing systems. Zero data loss transition.", icon: "🔄" },
-                            { title: "Dedicated Support Team", desc: "WhatsApp / Call support. Fast issue resolution (no long ticket delays).", icon: "🧑‍🏫" },
-                            { title: "Scalable for Growth", desc: "Start small → upgrade anytime. Supports institutions from single schools to multi-campus chains.", icon: "📈" },
-                            { title: "Fast Implementation", desc: "Once Developed, Go-live in 3–7 days. Minimal setup, quick onboarding.", icon: "⚡" },
-                            { title: "Universal Compatibility", desc: "Supports all boards + schools & colleges. One ERP for entire institution ecosystem.", icon: "🎓" },
-                            { title: "Client Retention Advantage", desc: "10% loyalty discount from 2nd year. Long-term cost savings.", icon: "🎁" }
-                        ].map((item, i) => (
-                            <motion.div
-                                key={i}
-                                className="simplifies-feature-item"
-                                initial={{ opacity: 0, x: i % 2 === 0 ? -60 : 60, scale: 0.9 }}
-                                whileInView={{ opacity: 1, x: 0, scale: 1 }}
-                                viewport={{ once: true }}
-                                transition={{ duration: 0.5, delay: i * 0.1 }}
-                                whileHover={{ scale: 1.03 }}
-                            >
-                                <div className="feature-icon-circle">
-                                    {item.icon}
-                                </div>
-                                <div className="feature-info">
-                                    <h3 className="feature-title">{item.title}</h3>
-                                    <p className="feature-desc">{item.desc}</p>
-                                </div>
-                            </motion.div>
-                        ))}
-                    </div>
-                </div>
-            </section>
 
             <section className="pricing-section" id="pricing">
                 <h2>Simple, Transparent Pricing</h2>
-                <p>Choose a plan that fits your school size</p>
+                <p>Choose a plan that fits your school/college size</p>
 
                 <div
                     className="pricing-carousel-container"
@@ -616,7 +681,7 @@ function Home() {
             </section>
 
             {/* FEATURE COMPARISON TABLE */}
-            <section className="comparison-section" id="features">
+            <section className="comparison-section" id="comparison">
                 <div className="comparison-header">
                     <h2>What's Included in <span>Each Plan</span></h2>
                     <p>See exactly what you get — no surprises.</p>
@@ -763,9 +828,9 @@ function Home() {
             <section className="cta-section">
                 <div className="cta-overlay">
                     <h2>Ready to Digitize Your School/College?</h2>
-                    <p>Join hundreds of schools simplifying their operations with Twite ERP.</p>
+                    <p>Join hundreds of schools/colleges simplifying their operations with Twite ERP.</p>
 
-                    <a href="#contact" className="cta-btn">Book a Demo</a>
+                    <a href="https://twite.ai/" target="_blank" rel="noopener noreferrer" className="cta-btn">Book a Demo</a>
                 </div>
             </section>
 
@@ -873,8 +938,8 @@ function Home() {
                                 </h2>
 
                                 <span>
-                                    {selectedPlan?.title === "Bronze" && "(Basic – Starter for All Schools)"}
-                                    {selectedPlan?.title === "Silver" && "(Standard – Growing Schools)"}
+                                    {selectedPlan?.title === "Bronze" && "(Basic – Starter for All Schools/Colleges)"}
+                                    {selectedPlan?.title === "Silver" && "(Standard – Growing Schools/Colleges)"}
                                     {selectedPlan?.title === "Gold" && "(Advanced – Premium Schools / Chains)"}
                                 </span>
                             </div>
