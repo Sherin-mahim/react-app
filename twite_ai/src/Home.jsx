@@ -790,7 +790,7 @@ function Home() {
                             </span>
                         </div>
                         {[
-                            ["Communication", "SMS (Manual)", "Bulk SMS/Email", "WhatsApp"],
+                            ["Communication", <>SMS (Manual)<span style={{ color: 'red' }}>*</span></>, <>Bulk SMS/Email<span style={{ color: 'red' }}>*</span></>, <>WhatsApp<span style={{ color: 'red' }}>*</span></>],
                             ["Reports & Dashboard", "Basic", "Detailed", "AI Insights"],
                             ["Data Backup & Security", "Basic", true, "Advanced"],
                         ].map(([feat, b, s, g]) => (
